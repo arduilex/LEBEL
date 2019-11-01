@@ -34,11 +34,7 @@ Pour se faire, 5 modes sont disponibles :
      - apprendre
      - reviser
      - test
-     
-# Sauvegarde
-  - Les scores des notes par la procédure ``contrôle`` sont enregistrés dans le fichier [score.txt](./score.txt)
-  - Les points faibles de chaque mot sont enregistrés dans le fichier [mot.txt](./mot.txt)
-    
+        
 # v3.3.1 Release notes (1 nov.)
 ## Majeur
   - Ajout de de valeur (pas à l'échelle) sur l'axe des abscisses TEMPS du graphique
