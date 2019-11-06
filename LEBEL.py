@@ -7,7 +7,7 @@
 # permission of Alexandre
 ####################################################################
 
-# Ce programme est la v3.2 du projet LEBEL
+# Ce programme est la v3.4 du projet LEBEL
 # Commencé le 04/11/2019 et fini le 06/11/2019
 # Par Alexandre BADER
 
