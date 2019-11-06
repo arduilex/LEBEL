@@ -42,6 +42,7 @@ Pour se faire, 5 modes sont disponibles :
 # v3.2 Release notes (6 nov.)
 ## Majeur
   - Ajout d'une moyenne dans le fichier score et sur le graphique
+  - Le fichier score se cré automatiquement en fonction des mots importés
   - Importation de toutes les notes sauvegardées dans le fichier score uniquement au début
 ## Mineur
   - Ajoute un index à la liste langue pour le sujet des mots
