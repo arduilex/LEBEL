@@ -44,6 +44,5 @@ Pour se faire, 5 modes sont disponibles :
   - Ajout d'une moyenne dans le fichier score et sur le graphique
   - Importation de toutes les notes sauvegardées dans le fichier score uniquement à partir de la fonction init() Sauvegarde de ces notes dans la liste noteSave jusqu'à la fin pour les remettrent dans le fichier score 
 ## Mineur
-  - Ajoute un index à la liste langue pour le sujet des mots
   - Ajout d'une liste global <noteSave> avec toutes les notes du fichier score.txt Pour ne pas répéter le script qui lit le fichier score dans la procédure save() et graphique()  
   - La procédure reviser() et test() affcihe elles aussi le mot actuelle sur le nombre total de mot
