@@ -39,14 +39,11 @@ Pour se faire, 5 modes sont disponibles :
   - Les scores des notes par la procédure ``contrôle`` sont enregistrés dans le fichier [score.txt](./score.txt)
   - Les points faibles de chaque mot sont enregistrés dans le fichier [mot.txt](./mot.txt)
     
-# v3.3.1 Release notes (31 oct.)
+# v3.4 Release notes (31 oct.)
 ## Majeur
-  - Ajout de de valeur (pas à l'échelle) sur l'axe des abscisses TEMPS du graphique
-     - Si le graphique du fichier score.txt est tracé alors l'axe x sera composé des dates des meilleurs note
-     - Si le graphique de la séance actuelle est tracé alors l'axe x sera composé des heures aux quelles controle() a été appelé
-     - Pour rester lisible et par l'impossiblité d'affiché les valeurs sans qu'elles sont parallèles à l'axe 
-     - Si le nombre de valeur est supérieur à 15, alterner la distance par rapport à l'axe x des valeurs lorsques elles sont imprimées
-     - Si le nombre de valeur est supérieur à 30, supprimer les premières valeurs pour atteindre 30 au maximum
+  - Ajout d'une moyenne dans le fichier score et sur le graphique
+  - Importation de toutes les notes sauvegardées dans le fichier score uniquement à partir de la fonction init() Sauvegarde de ces notes dans la liste noteSave jusqu'à la fin pour les remettrent dans le fichier score 
 ## Mineur
-  - La liste ``note`` passe à tableau ``note`` pour pouvoir enregistrer l'heure d'obtention de chaque note par la procédure ``controle()``
-  - Comme chaque note à une heure, lors de la procédure ``save()`` enregistrer la date actuelle ainsi que l'heure de la note et non actuelle
+  - Ajoute un index à la liste langue pour le sujet des mots
+  - Ajout d'une liste global <noteSave> avec toutes les notes du fichier score.txt Pour ne pas répéter le script qui lit le fichier score dans la procédure save() et graphique()  
+  - La procédure reviser() et test() affcihe elles aussi le mot actuelle sur le nombre total de mot
