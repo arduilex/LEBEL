@@ -39,7 +39,7 @@ Pour se faire, 5 modes sont disponibles :
   - Les scores des notes par la procédure ``contrôle`` sont enregistrés dans le fichier [score.txt](./score.txt)
   - Les points faibles de chaque mot sont enregistrés dans le fichier [mot.txt](./mot.txt)
     
-# v3.4 Release notes (31 oct.)
+# v3.4 Release notes (7 nov.)
 ## Majeur
   - Ajout d'une moyenne dans le fichier score et sur le graphique
   - Importation de toutes les notes sauvegardées dans le fichier score uniquement à partir de la fonction init() Sauvegarde de ces notes dans la liste noteSave jusqu'à la fin pour les remettrent dans le fichier score 
