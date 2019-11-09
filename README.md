@@ -42,8 +42,8 @@ Pour se faire, 5 modes sont disponibles :
 # v4.0 Release notes (9 nov.)
 ## Majeur
   - Catégorisation :
-    - Dans le fichier ``mot.txt`` ajouter un thème entre [] à chaque groupe de mot
-    - Au démarrage du programme, TOUT les thèmes sont analysés, ainsi l'utilisateur peut choisir (sans changer l'ordre dans le fichier ``mot.txt``) quel thème il veut apprendre ou travailler
+    - Dans le fichier ``mot.txt`` ajouter un thème entre ``[]`` à chaque groupe de mot
+    - Au démarrage du programme, **tout** les thèmes sont analysés, ainsi l'utilisateur peut choisir (sans changer l'ordre dans le fichier ``mot.txt``) quel thème il veut apprendre ou travailler
       - Une option pour ajouter un thème est disponible durant ce pré-démarrage
     - Chaque fichier ``score.txt`` est individuelle en fonction du thème Ex : si le thème ``Physique`` est travaillé alors le fichier score s'appelle ``SCORE (Physique).txt``
 ## Mineur
