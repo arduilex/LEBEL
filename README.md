@@ -36,7 +36,7 @@ Pour se faire, 5 modes sont disponibles :
      - test
         
 # v3.3.1 Release notes (1 nov.)
-## Majeur
+## Majeur :p
   - Ajout de de valeur (pas à l'échelle) sur l'axe des abscisses TEMPS du graphique
      - Si le graphique du fichier score.txt est tracé alors l'axe x sera composé des dates des meilleurs note
      - Si le graphique de la séance actuelle est tracé alors l'axe x sera composé des heures aux quelles controle() a été appelé
