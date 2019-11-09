@@ -36,17 +36,11 @@ Pour se faire, 5 modes sont disponibles :
      - test
      
 # Sauvegarde
-  - Les scores des notes par la procédure ``contrôle`` sont enregistrés dans le fichier [score.txt](./score.txt)
+  - Les scores des notes par la procédure ``contrôle`` sont enregistrés dans le dossier [score](./score)
   - Les points faibles de chaque mot sont enregistrés dans le fichier [mot.txt](./mot.txt)
     
-# v3.3.1 Release notes (31 oct.)
+# v4.0 Release notes (9 nov.)
 ## Majeur
-  - Ajout de de valeur (pas à l'échelle) sur l'axe des abscisses TEMPS du graphique
-     - Si le graphique du fichier score.txt est tracé alors l'axe x sera composé des dates des meilleurs note
-     - Si le graphique de la séance actuelle est tracé alors l'axe x sera composé des heures aux quelles controle() a été appelé
-     - Pour rester lisible et par l'impossiblité d'affiché les valeurs sans qu'elles sont parallèles à l'axe 
-     - Si le nombre de valeur est supérieur à 15, alterner la distance par rapport à l'axe x des valeurs lorsques elles sont imprimées
-     - Si le nombre de valeur est supérieur à 30, supprimer les premières valeurs pour atteindre 30 au maximum
+  - Au début du programme, analyse des tout les thèmes (groupe de mot). Si il y en a plus d'un proposer quel thème apprendre
 ## Mineur
-  - La liste ``note`` passe à tableau ``note`` pour pouvoir enregistrer l'heure d'obtention de chaque note par la procédure ``controle()``
-  - Comme chaque note à une heure, lors de la procédure ``save()`` enregistrer la date actuelle ainsi que l'heure de la note et non actuelle
+  - Enregistre les fichier .txt score dans un dossier
