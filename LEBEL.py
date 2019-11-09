@@ -1,14 +1,14 @@
 ####################################################################
 # Copyright (C) 2019-2019 BADER Alexandre <alexandrebader3@gmail.com>
-#8
+#
 # This file is part of LEBEL.
 #
 # LEBEL can not be copied and/or distributed without the express
 # permission of Alexandre
 ####################################################################
 
-# Ce programme est la v3.3.1 du projet LEBEL
-# Fait le 31/10/2019
+# Ce programme est la v3.3.2 du projet LEBEL
+# Commencé le 04/11/2019 et fini le 06/11/2019
 # Par Alexandre BADER
 
 # Définie la procédure apprendre() avec les paramètres <list1> et  <list2>
@@ -16,9 +16,8 @@ def apprendre(list1, list2):
     # Cette procédure permet d'apprendre
     # Tout les mots en les affichants un par un
     # Initialisation de <int> <N> au nombre de mots que contient la liste <str> <list1>
-    N = len(list1)
     print("Bienvenue dans le mode APPRENDRE\n")
-    for i in range(N):      # Pour i allant de 0 à N
+    for i in range(len(list1)):      # Pour i allant de 0 au nombre de mot dans <list1>
         # Affiche le mot de <list1> et sa traduction de <list2>
         print(i+1, '. ', list1[i], ' = ', list2[i], sep='', end=' ')
         input()  # attend que l'utilisateur ai retenue les 2 mots
@@ -31,7 +30,6 @@ def reviser(list1, list2, list3):
     # avec un simple affichage du mot de la langue choisit
     # Lorsque l'utilisateur à trouver la traduction dans sa tête
     # il peut vérifier si cette dernière est juste en affichant la traduction correcte
-    N = len(list1)      # Initialisation de <int> <N> à la longeur de <list1>
     print("Bienvenue dans le mode REVISER\n")
     # Demande si l'utilisateur veut afficher les mots à traduires en langue 1 ou langue 2 (de la <list3>)
     print("Vous voulez réviser en ",
@@ -42,7 +40,7 @@ def reviser(list1, list2, list3):
     # une copie des valeurs des 2 listes (par adresse) est effectuée
     # sur leurs intervalles complets [:] = [0:len(list)]
     fr, et = list1[:], list2[:]     # Copie des liste <list1> et <list2> dans <fr> et <et>
-    for i in range(N):      # Pour i allant de 0 à N
+    for i in range(len(list1)):      # Pour i allant de 0 au nombre de mot dans <list1>
          # Affecter à r un nombre aléatoire compris entre 0 et la longeur de <fr> -1 pour ne pas dépasser l'index maximal de la liste
         r = randint(0, len(fr)-1)
         if langue == '1':   # Si la langue désirée est la première de <list3>
@@ -51,7 +49,7 @@ def reviser(list1, list2, list3):
         else:               # Si la langue choisit est la deuxième
             # Affecter à <mot> le mot <str> d'index <r> de <et>(list2) et à <trad> sa traduction qui est l'index <r> de <fr>(list1)
             mot, trad = et[r], fr[r]
-        print("La traduction de <", mot, "> est...", sep='', end='')   # Affiche le premier mot
+        print(i+1, '/', len(list1), " La traduction de <", mot, "> est...", sep='', end='')   # Affiche le premier mot
         input()     # Attend que l'utilisateur trouve la traduction dans sa tête
         print('>', trad, end='')  # Affiche la bonne traduction
         input()     # Attend que l'utilisateur appuie sur entrée pour passer au mot suivant
@@ -86,7 +84,7 @@ def test(list1, list2, list3):
             # Affecter à <mot> le mot <str> d'index <r> de <et>(list2) et à <trad> sa traduction qui est l'index <r> de <fr>(list1)
             mot, juste = et[r], fr[r]
         # Demande la tradcution de la variable <str> mot
-        print("Donne moi la traduction de <", mot, '> : ', sep='', end='')
+        print(i+1, '/', N-p, " Donne moi la traduction de <", mot, '> : ', sep='', end='')
         reponse = input()       # Enregistre la réponse dans la variable <str> <reponse>
         if reponse == juste:    # Si la réponse est identique à la bonne traduction
             print(">BRAVO !")
@@ -114,7 +112,7 @@ def controle(list1, list2, list3):
     p = 0  # Nomre de point pour chaque réponse juste
     # Initialisation à vide de la liste <str> <corrige>
     # Qui contiendra les corrections si des traductions sont fausses
-    corrige = []
+    corrige = []    # Initialisation de la lsite <corrige>
     for i in range(N):  # Pour i allant de 0 à N
         r = randint(0, len(fr)-1)   # Choisit un rang <r> entre 0 et la longeur de <fr> -1
         if randint(0, 1):       # Une chance sur deux de traduire le mot dans la langue 1 ou 2
@@ -156,7 +154,7 @@ def controle(list1, list2, list3):
                 # Affiche Le mot suivi de sa tradution et la mauvaise tradution répondue
                 # Pour afficher ces 3 éléments de la liste <corriger>
                 # L'index i de la boucle for est multiplié par 3 puis il y est additionné par l'entier (1 ou 2) pour acccéder à l'élément voulu
-                print(i+1, '/', N-p, " La traduction de ",corrige[i*3], " est <", corrige[i*3+1], "> (≠", corrige[i*3+2], ")", sep='', end='')
+                print(i+1, '/', N-p, " La traduction de <",corrige[i*3], "> est <", corrige[i*3+1], "> (≠", corrige[i*3+2], ")", sep='', end='')
                 input()     # Attendre que l'utilisateur prenne connaissance de son erreur
             print()     # Saute une ligne
     # Enregistre le score dans la liste <note>
@@ -213,13 +211,6 @@ def hard(list1, list2, list3, list4):
                 n = 1   # Forcer le nombre de mot à travailler à être supérieur à 0
             elif n > N:
                 n = N
-        if n == 1:  # Si il n'y a qu'un seul mot à travailler
-            print("Ta plus grande difficulté est : ")
-        else:   # sinon (si il y a plus d'un mot à traivailler)
-            print("Tes mots les plus difficiles sont dans l'ordre décroissant : ")
-        # Afficher les mots difficiles avec leurs points de difficultés, précédament trié dans l'ordre décroissant 
-        for i in range(n):  # Pour i allant de 0 à <n> 
-            print('<', list1[top[1][i]],'>(', top[0][i]/10, ')', sep='', end='  ')  # Affciher l'index i de la 1ère et 2eme liste du tableau <top>
         # Ces 2 lignes suivantes sont très compressées et donc optimisées
         # Prenons l'exemple de <motFR>
         # La liste est initialiser depuis la liste <list1> qui contient TOUT les mots en français
@@ -231,6 +222,13 @@ def hard(list1, list2, list3, list4):
         motET = [list2[top[1][i]] for i in range(n)]    # Initialisation de <str> <motET>
         play = True     # Initialisation de la la variable <bool> à l'état True pour entrer dans la boucle while
         while play:     # Tant que play != 0
+            if n == 1:  # Si il n'y a qu'un seul mot à travailler
+                print("\nTa plus grande difficulté est : ")
+            else:   # sinon (si il y a plus d'un mot à traivailler)
+                print("\nTes mots les plus difficiles sont dans l'ordre décroissant : ")
+            # Afficher les mots difficiles avec leurs points de difficultés, précédament trié dans l'ordre décroissant 
+            for i in range(n):  # Pour i allant de 0 à <n> 
+                print('<', list1[top[1][i]],'>(', top[0][i]/10, ')', sep='', end='  ')  # Affciher l'index i de la 1ère et 2eme liste du tableau <top>
             # Afficher le sous menu de la procédure hard()
             # Son fonctionnement est le même que le menu principal
             print("\n\nQue veux tu faire pour t'améliorer ? ")
@@ -447,9 +445,9 @@ def parametre(list1, list2, list3, list4):
     # 2.Reset les point faibles, si par exemple une autre personne veut apprendre les mots
     # 3.Changer la base de note, si une note sur 10 ne vous convient pas vous pouvez la changer sur n'importe quelle autre base dans l'intervale [1; +infini[
     #   Pour ne pas a avoir à changer la base à chaque redémarrage du programme, cette valeur est sauvegardée dans le fichier score.txt
-    global base, note   # Définie les variables <base> et <note> comme global car elles sont modifiées
+    global base, note, noteSave   # Définie les variables <base> <note> et <noteSave> comme global car elles vont être modifiées
     def setBase():
-        global base, note   # Redéfinie les variables <base> et <note> comme global car dans chaque fonction les varaibles sont prioritairements local
+        global base, note, noteSave   # Redéfinie les variables <base> et <note> comme global car dans chaque fonction les varaibles sont prioritairements local
         # Cette procédure change la base de la note pour les procédures test() et controle() ainsi que l'enregistrement du meilleur score
         # de la partie dans le fichier score.txt Or si la base change la note du meilleur score change aussi !
         # Il faut donc reconvertir avec les produits en croix la note pour qu'elle corresponde avec la nouvelle base (ex : 5/10 -> 10/20)
@@ -458,9 +456,11 @@ def parametre(list1, list2, list3, list4):
         while newBase <= 0:     # Tant que la nouvelle base ne corresponde pas aux critères de validités
             newBase = int(input("Entrez votre nouvelle base : "))   # Saisir la nouvelle base dans <str> <newBase>
             if newBase <= 0:   # Si la base est négative ou nulle
-                print("La base doit être supérieur à 0 !")
+                print("La base doit être positive !")
         for i in range(len(note[0])):   # Pour i allant de 0 au nombre de note compris dans la liste d'index 0 du tablau note
-            note[0][i] = round(note[0][i] / base * newBase)     # Convertir la note en fonction de la nouvelle base
+            note[0][i] = round(note[0][i] / base * newBase)     # Convertir la note de <note> en fonction de la nouvelle base
+        for i in range(len(noteSave[0])):
+            noteSave[0][i] = round(noteSave[0][i] / base * newBase)     # Convertir la note de <noteSave> en fonction de la nouvelle base
         base = newBase  # Affecter à la variable global <base>, la variable local <newBase>
     def reset():
         # Ce reset est déconsillé d'être effectué car il ne sera plus possible de connaître ses plus grosses difficultées
@@ -511,8 +511,8 @@ def parametre(list1, list2, list3, list4):
         if choix in ['1', '2', '3']:  # Si la variable <str> <choix> appartient à la liste des choix correspondants à une procédure  
             input("\nLa commande s'est terminée avec succès !\nAppuiez sur entrée pour revenir au menu...")   # Bloque le programme jusq'à une action de l'utilisateur
 
-# Définie la procédure save() sans paramètre
-def graphique(note, base):
+# Définie la procédure save() avec les paramètres <list1>, <list2>, <list3> et <var>
+def graphique(list1, list2, list3, var):
     # Cette procédure, grâce au module 'turtle' afficher un graphique sur un repère x, y 
     # Les ordonnées représentent la note sur 20 en fonction du temps (absisses) qui précisons, n'est pas à l'échelle 
     # On peut afficher 2 catégories de note différentes!
@@ -536,19 +536,19 @@ def graphique(note, base):
         t.up()      # Lève le stylo
         t.backward(9)   # Recule de 9
         t.right(135)    # Tourne de 135 degrés
-    def ecrire(str, x, y):
-        # Ecrit la chaine de caractère voulu en se déplacant de x ou y 
+    def ecrire(str, x, y, taille):
+        # Ecrit la chaine de caractère voulu en se déplacant de <x> ou <y> et avec une <taille> de police
         t.up()  # Lève le stylo
         s(x, y) # Se déplace de x et y
-        t.write(str, font=("Arial", 9, "normal"))   # Ecrit la chaine de caractère <str> avec la police Arial en taille 9
+        t.write(str, font=("Arial", taille, "normal"))   # Ecrit la chaine de caractère <str> avec la police Arial en taille 9
         s(-x, -y)   # Revient sur les coordonnées précédentes 
     def point():
         #Trace un gros point en bleu à chque valeur d'une note
         t.width(9)  # Règle l'épaisseur du stylo à 9
-        t.color('#d287d6') # Règle la couleur du stylo à rose-blanc
+        t.color(colorPoint) # Règle la couleur du stylo 
         s(0, 0)     # Fait semblant davancer pour que le stylo "imprime"
         t.width(4)  # Remet l'épaisseur su stylo à 4
-        t.color('#9d2fd5')  # Remet la couleur du stylo à violet
+        t.color(colorCourbe)  # Remet la couleur du stylo comme avant
 
     # Programme principale 
     print("Bienvenue dans le mode GRAPHIQUE")
@@ -556,41 +556,29 @@ def graphique(note, base):
     print("1. Vos dernières notes de cette séance")
     print("2. Vos meilleures notes du fichier score.txt")
     choix = input("Votre choix : ")
+    total = 0   # Initialise la variable <total> pour le calcule de la moyenne
     if choix == '1':
-        noteGraph = note[0][:]     # Copie la liste <note> dans <noteGraph> SANS ADRESSE !
-        baseLocal = base    # Affecte <baseLocal> la <base> actuelle
-        tempsGraph = note[1][:]     # Affecte à <tempsGraph> toutes les heures aux quelles controle() à été appelée
+        noteGraph = list2[0][:]     # Copie la liste <list2> dans <noteGraph> SANS ADRESSE !
+        tempsGraph = list2[1][:]     # Affecte à <tempsGraph> toutes les heures aux quelles controle() à été appelée
+        for i in list2[0]:   # Calcule le total des note de la liste <list2>
+            total += i      # Incrémente l'index i de <list2[0]> à <total>
+        n = len(list2[0])    # Initialise <n> au nombre de note dans <list2[0]>
     else:   # Si choix == '2'
-        f = open("score.txt", 'r', encoding='Utf-8')    # Ouverture du fichier score.txt en lecture avec l'encodage 'Utf-8'
-        f.readline()    # Avance d'une ligne
-        read = f.readline()     # Lecture de la deuxième ligne du fichier
-        baseLocal = ''  # Initialisation de la variable <str> <baseLocal>
-        for i in range(12, len(read)):  # Pour i allant du premier caractère de la valeur de la base jusq'à son dernier caractère
-            baseLocal += read[i]     # Ajoute à base par concaténation le caractère i de <read>
-        baseLocal = int(baseLocal)    # Convertion de la base <str> en <int>
-        for i in range(2):  # Avance de 4 lignes 
-            f.readline()    # Lis la ligne suivante
-        save = f.readlines()   # Enregistre tout le reste des lignes non lu dans la liste <save>
-        f.close()   # Ferme le fichier
-        noteGraph = []    # Initialisation de la liste <int> <noteGraph>
-        tempsGraph = []     # Initialisation de la liste <str> <noteGraph>
-        for i in range(int(len(save)/3)):    # Pour i allant de la 1ère note à la dernière
-            temp = ''   # Initialisation de <temp> à une chaine de caractère vide
-            for j in range(26, len(save[i*3+1])):   # Pour i allant du premier caractère de la note au dernier
-                temp += save[i*3+1][j]  # Concatenation de <temp> 
-            temp = temp.split('/')    # Séparation de <temp> par le caractère '/' avec la fonction .split()
-            noteGraph.append(int(temp[0]))   # Ajoute à la liste <noteGraph> la note correspondant à une base de 20
-            temp = ''       # Initialisation de <temp> à une chaine de caractère vide
-            for j in range(3, len(save[i*3])):  # Acces à toutes les dates de chaque note
-                temp += save[i*3][j]    # Concatenation de <temp> à aprtir du 3eme caractère 
-            temp = temp.split('/')      # Coupe la chaine de caractère sur les '/'
-            tempsGraph.append(str(temp[0]+'/'+temp[1]))   # La date enregistrer est le jour + le mois
+        noteGraph = list3[0][:]     # Copie la liste <list3> dans <noteGraph> SANS ADRESSE !
+        tempsGraph = []         # Initialsiation de la liste <tempsGraph>
+        for i in list3[1]:      # Analyse de toutes les notes de <list3>
+            temp = i.split('/')    # Sépare la chaine de caractère i 
+            tempsGraph.append(temp[0][3:]+'/'+temp[1])      # Affecte à <tempsGraph> toutes la date jour/mois de la variable temp
+        for i in list3[0]:   # Calcule le total des note de la liste <list3>
+            total += i      # Incrémente l'index i de <list3[0]> à <total>
+        n = len(list3[0])    # Initialise <n> au nombre de note dans <list3[0]>
     if len(noteGraph) < 2:  # Si la quantité de note empêche la création d'un graphique
-        print("\nIl n'y a pas assez de notes...\n")     # 
-    else:   # Si il y plus d'une note
-        if baseLocal != 20:     # Si la <baseLocal> est déjà à 20 il est inutile de convertir les notes avec une base 20...
+        print("\nIl n'y a pas assez de notes...\n")
+    else:   # Si il y a assez de notes
+        moyenne = round((total/var*20)/n) # Calcule la moyenne et affecte le résultat à <moyenne>
+        if var != 20:     # Si la <var> est déjà à 20 il est inutile de convertir les notes avec une base 20...
             for i in range(len(noteGraph)): # Affecte à chaque index de <noteGraph>
-                noteGraph[i] = round(noteGraph[i]/baseLocal*20)    # La note convertie sur une base de 20
+                noteGraph[i] = round(noteGraph[i]/var*20)    # La note convertie sur une base de 20
         print("\nOuverture de la fenêtre turtle.py...", end='')
         try:    # Essaye
             # Si la fenêtre s'est déjà fermé, une erreur se produit lors de la re ouverture
@@ -598,63 +586,69 @@ def graphique(note, base):
             t.reset()
         except:
             print("ERREUR !\n2eme tentative d'ouverture...", end='')
-        t.reset()   # Remet tout les réglage à 0 et ouvre une fenêtre si ce n'est pas le cas
-        t.bgcolor("black")  #Règle la couleur de l'arrière plan à noir
-        t.color("#4261ca") # Règle la couleur du stylo à bleu
-        t.speed(0)  # Règle la vitesse de déplacement à 4
-        t.width(5)  # Règle l'épasseur du stylo à 3
-        t.ht()      # Cache le stylo
-        t.up()      # Relève le stylo
         ############################
         x = 550     # Dimenssion global X
-        y = 460     # Dimenssion global Y
+        y = 500     # Dimenssion global Y
         ############################
-        descend = -220  # Descente dans les négatif de y par rapport à y=0
-        dec = 30    # Décalage entre le bout du repère et le bout de la courbe
-        # Affiche axe x et y
-        print("OK !\nConsruction du repère x, y...", end='')
-        s(-300, descend)       # Se place à l'origine du repère [0;0]
-        t.down()      # Pose le stylo
-        s(0, y)       # Trace l'axe des ordonnées y
-        t.left(90)    # Pour tracer la flèche dans le bon sens
-        ecrire("NOTE", -13, 2)  # Notation de l'axe y
-        fleche()    # ajout d'une fleche sur le bout de l'axe y
-        s(0, -y)    # Retour à l'origine
-        t.down()    # Pose le stylo
-        s(x, 0)     # Trace l'axe des abscisses x
-        ecrire("TEMPS", 6, -7)   # Notation de l'axe x
-        t.right(90)   # Pour tracer la flèche dans le bon sens
-        fleche()      # ajout d'une fleche sur le bout de l'axe x
-        s(-x, 0)      # Retour à l'origine
-        # Construction lignes dégrdées
-        print("OK !\nConstruction de l'échelle en ordonnée...", end='')
-        t.width(4)    # affine l'épaisseur du stylo
-        s(3, 0)     # Se décale un peu vers la droite
+        xDec = -300  # Recule dans les négatif de x par rapport à x=0
+        yDec = -240  # Descente dans les négatif de y par rapport à y=0
+        dec = 30     # Décalage entre le bout du repère et le bout de la courbe
+        miniDec = 4  # Pour ne pas que le dégradé touche l'axe y
+        colorRepere = '#4261CA'     # Bleu clair
+        colorCourbe = '#9D2fF5'     # Violet 
+        colorPoint = '#D287D6'      # Violet clair
+        colorMoyenne = '#F34141'    # Rouge clair
         # Initialisation de la liste <degrader> comportant un dégarder du rauge --> vert en #hexadécimal
         # Chaque index correspond à une couleur décomposer en RGB
         # Par exemple #FD 0D 01
         #             253 13  1
         #              R  G   B
         # La couleur R=red=rouge étant dominante on obtient du rouge
-        degrader = ['#FD0D01', '#FB2803', '#F94205', '#F85F06', '#F67708', '#F48F0A', '#F2A90C', '#F0BF0E', '#EFD50F', '#EDED11', '#D6EB13', '#BEE915', '#A5E816', '#90E618', '#78E41A', '#64E21C', '#52E01E', '#3CDF1F', '#2ADD21', '#23DB2C']
+        colorDegrader = ['#FD0D01', '#FB2803', '#F94205', '#F85F06', '#F67708', '#F48F0A', '#F2A90C', '#F0BF0E', '#EFD50F', '#EDED11', '#D6EB13', '#BEE915', '#A5E816', '#90E618', '#78E41A', '#64E21C', '#52E01E', '#3CDF1F', '#2ADD21', '#23DB2C']
+        t.reset()   # Remet tout les réglage à 0 et ouvre une fenêtre si ce n'est pas le cas
+        t.bgcolor("black")  #Règle la couleur de l'arrière plan à noir
+        t.color(colorRepere) # Règle la couleur du stylo à bleu
+        t.speed(0)  # Règle la vitesse de déplacement à 4
+        t.width(5)  # Règle l'épasseur du stylo à 3
+        t.ht()      # Cache le stylo
+        t.up()      # Relève le stylo
+        # Affiche axe x et y
+        print("OK !\nConsruction du repère x, y...", end='')
+        s(xDec, yDec)       # Se place à l'origine du repère [0;0]
+        t.down()      # Pose le stylo
+        s(0, y)       # Trace l'axe des ordonnées y
+        t.left(90)    # Pour tracer la flèche dans le bon sens
+        ecrire("NOTE", -13, 2, 10)  # Notation de l'axe y
+        fleche()    # ajout d'une fleche sur le bout de l'axe y
+        s(0, -y)    # Retour à l'origine
+        t.down()    # Pose le stylo
+        s(x, 0)     # Trace l'axe des abscisses x
+        ecrire("TEMPS", 6, -7, 10)   # Notation de l'axe x
+        t.right(90)   # Pour tracer la flèche dans le bon sens
+        fleche()      # ajout d'une fleche sur le bout de l'axe x
+        s(-x, 0)      # Retour à l'origine
+        # Construction lignes dégrdées
+        print("OK !\nConstruction de l'échelle en ordonnée...", end='')
+        t.width(4)    # affine l'épaisseur du stylo
+        s(miniDec, 0)     # Se décale un peu vers la droite
         for i in range(20):     # Trace 20 lignes en partant de 0
-            t.color('#4261ca')     # Règle la couleur à bleu
+            t.color(colorRepere)     # Règle la couleur 
             if i % 2 == 0:      # Si i est pas divisible par 2
-                if i <10:       # Si i n'a pas encore atteint la dizaine
-                    ecrire(str(i), -15, -7)  # Ecrit l'échelle (rapproché de l'axe y)
-                else:   # Si la division de i par 2 possède un rese
-                    ecrire(str(i), -20, -7)  # Ecrit l'échelle (éloigné de l'axe y)
+                if i < 10:       # Si i n'a pas encore atteint la dizaine
+                    ecrire(str(i), -17, -7, 10)  # Ecrit l'échelle (rapproché de l'axe y)
+                else:   # Si la division de i par 2 possède un reste
+                    ecrire(str(i), -24, -7, 10)  # Ecrit l'échelle (éloigné de l'axe y)
             t.up()  # Lève le stylo
             s(0, (y-dec)/20)     # Monte de quelques ordonnées sur l'axe y
-            t.color(degrader[i])   # Règle la couleur à la couleur hexadécimal du rang i de <degrader>
+            t.color(colorDegrader[i])   # Règle la couleur à la couleur hexadécimal du rang i de <degrader>
             t.down()    # Pose le stylo
-            s(x-dec, 0) # Trace la ligne
+            s(x-dec-miniDec, 0) # Trace la ligne
             t.up()  # Lève le stylo
-            s(-(x-dec), 0)  # Reviens sur l'axe des ordonnées
-        t.color('#4261ca')     # Règle la couleur sur bleu
-        ecrire('20', -20, -7) # Ecrit l'échelle : 20
+            s(-(x-dec-miniDec), 0)  # Reviens sur l'axe des ordonnées
+        t.color(colorRepere)     # Règle la couleur 
+        ecrire('20', -23, -7, 10) # Ecrit l'échelle : 20
         t.up()  # Lève le stylo
-        s(-3, 0)    # Se recolle àl'axe y
+        s(-miniDec, 0)    # Se recolle àl'axe y
         s(0, -(y-dec))  # Se place sur l'origine
         # Construction échelle temps + Initialisation graphique
         if len(noteGraph) > 30:     # Si le nombre de note est trop grand
@@ -669,12 +663,12 @@ def graphique(note, base):
             # Si il y a trop de valeur
             # Alterner dans les y (une fois sur 2 aller un peu plus bas lors de l'écriture)
             if len(tempsGraph) > 15 and i % 2:          # Si la division par 2 donen un reste (pour i = 1, 3, 5,...)
-                ecrire(tempsGraph[i], -14, -35)         # Ecrire la date ou heure en allant plus en dessous de l'axe des absisses
+                ecrire(tempsGraph[i], -14, -35, 10)         # Ecrire la date ou heure en allant plus en dessous de l'axe des absisses
             else:
-                ecrire(tempsGraph[i], -14, -20)     # Ecrire la date ou heure en allant au plus proche de l'axe des absisses
+                ecrire(tempsGraph[i], -14, -20, 10)     # Ecrire la date ou heure en allant au plus proche de l'axe des absisses
             s(xStep, 0)     # Avance de quelques x 
         # Initialisation graphique
-        t.color('#9d2fd5')  # Règle la couleur sur violet
+        t.color(colorCourbe)  # Règle la couleur
         s(-(xStep*len(tempsGraph)), 0)      # Retourne à l'origine [0;0]
         s(0, (noteGraph[0]*(y-dec)/20))     # Monte en y en fonction de la grandeur de la 1ere note de <noteGraph>
         t.down()    # Pose le stylo
@@ -684,16 +678,21 @@ def graphique(note, base):
         print("OK !\nConstruction de la courbe...", end='')
         # Trace le graphique
         for i in range(1, len(noteGraph)):  # Pour i allant de 0 à la dernière note de <noteGraph>
-            t.goto(t.xcor() + xStep, noteGraph[i]*yStep+descend)  # Avance de xStep et se place sur les ordonnées en fonction de la note
+            t.goto(t.xcor() + xStep, noteGraph[i]*yStep+yDec)  # Avance de xStep et se place sur les ordonnées en fonction de la note
             point()     # Trace un point
         print("OK !\n")
+        t.speed(0)  # Vitesse au maximum
+        t.up()      # Relève le stylo
+        t.color(colorMoyenne)   # Change la couleur
+        t.goto(-150, 248)       # Se déplace à un point précis
+        ecrire(("MOYENNE = " + str(moyenne) + "/20"), 0, 0, 20)     # Ecrit la moyenne du grpahique de note
     input('Appuiez sur entrée pour revenir au menu...')
     #print("Ne fermez pas la fenêtre turtle.py merci :)")
     if len(noteGraph) > 1:
         t.bye()     # Ferme la fenêtre 
     
-# Définie la procédure save() avec les paramètres <list1>, <list2>, <list3>, <list4>, <base> et <note>
-def save(list1, list2, list3, list4, base, note):
+# Définie la procédure save() avec les paramètres <list1>, <list2>, <list3>, <list4>, <list5> <list6> et <var>
+def save(list1, list2, list3, list4, list5, list6, var):
     # Cette procédure est déstiné à sauvegarder toutes les valeurs de variables ou listes dans des fichiers textes
     def arrondie(float):
         # Cette fonction arrondie() sert à renvoyer un arrondie d'un float à une décimale uniquement
@@ -718,7 +717,7 @@ def save(list1, list2, list3, list4, base, note):
     save = f.readlines()    # Sauvegarder tout le reste du fichier texte à partir du saut de ligne dans la liste <save>
     f.close()   # Fermer le fichier mot.txt
     f = open("mot.txt", 'w', encoding='Utf-8')  # Ouverture du fichier mot.txt en écriture (écrase le fichier éxistant) avec l'encodage 'Utf-8
-    f.write('['+list4[0]+'='+list4[1]+']\n')    # Ecrire sur la première ligne du fichier les 2 langues entre crochet : [langue1=langue2]
+    f.write('['+str(list4[0])+'='+str(list4[1])+']\n')    # Ecrire sur la première ligne du fichier le sujet et les 2 langues entre crochet : [langue1=langue2]
     # Ecriture de toutes les paires de mots avec leurs points de difficultés 
     # ligne par ligne : mot=saTradution.(pointDeDifficultés)
     for i in range(len(list1)):    #Pour i allant de 0 au nombre de mot total dans <list1> 
@@ -727,69 +726,39 @@ def save(list1, list2, list3, list4, base, note):
     for index in save:  # Ajout de la sauvegarde non utilisée dans le programme
         f.write(index)  # Ecriture ligne par ligne
     f.close()   # Fermeture du fichier mot.txt
-    f = open("score.txt", 'r', encoding='Utf-8')    # Ouverture du fichier score.txt en lecture avec l'encodage 'Utf-8'
-    f.readline()    # Avance d'une ligne
-    read = f.readline()     # Lecture de la deuxième ligne du fichier
-    baseSave = ''   # Initialise <str> <baseSave> à une chaine de caractère vide
-    for i in range(12, len(read)):  # Pour i allant du premier caractère de la valeur de la base jusq'à son dernier caractère
-        baseSave += read[i]     # Ajoute à base par concaténation le caractère i de <read>
-    baseSave = int(baseSave)    # Convertion de la base <str> en <int>
-    for i in range(2):  # Avance de 4 lignes 
-        f.readline()    # Lis la ligne suivante
-    save = f.readlines()   # Enregistre tout le reste des lignes non lu dans la liste <save>
-    f.close()       # Ferme le fichier score.txt
-    # Initialise de la lsite <int> <bestNote> à 0 pour sauvegarder la meilleure note 
-    # et '' pour sauvegarder l'heure d'obtention de cette note
-    bestNote = [0, '']    
-    for i in range(len(note[0])):  # Analyse tout les éléments de la liste de rang 0 du tableau <note>
-        if note[0][i] > bestNote[0]:    # Si la note i de la liste du rang 0 du tableau <note> est plus grand que l'inde 0 de <bestNote>
-            bestNote[0] = note[0][i]    # Affecter à l'nidex 0 de <bestNote> la meilleure note
-            bestNote[1] = note[1][i]    # Affecter à l'index 1 de <bestNote> l'heure de cette note
-    temp = ''   # Iinitialisation de <str> <temp> à ''
-    # Si la base du fichier score.txt <baseSave> est égale à la base actuelle
-    # Il est inutile de convertir toutes les notes car elles ne changeront pas !
-    if baseSave != base:    # Si la <basSave> est différente de la base actuelle
-        tempsGraph = []   # Initialisation de la liste <tempsGraph> pour enregistrer les date et heures de chaque scores enregistrés 
-        noteNow = []    # Initialisation de la liste <noteNow> pour les nouvelles notes de la nouvelle base 
-        # Chaque note est regroupé en 3 lignes
-        # 1.Date de la note
-        # 2.Note sur base
-        # 3.Saut de ligne
-        # Ainsi pour analyser toutes les notes en une boucle
-        # On divise par 3 la longeur de la liste <save> 
-        # Puis ensuite avec une fonction affine (i*3+k) on peut se déplacer dans le 'groupe' de la note
-        for i in range(int(len(save)/3)):    # Pour i allant de la première note à la dernière
-            tempsGraph.append(save[i*3])  # Ajout de la date de la note dans la liste <tempsGraph>
-            temp = ''   # Initialisation de <temp> à une chaine de caractère vide
-            for j in range(26, len(save[i*3+1])):   # Pour i allant du premier caractère de la note au dernier
-                temp += save[i*3+1][j]  # Concatenation de <temp> 
-            # Affectation à <noteSave> la liste de <temp> séparée par le caractère '/'
-            noteSave = temp.split('/')    # Séparation de <temp> par le caractère '/' avec la fonction .split()
-            noteSave = int(noteSave[0])   # Convertion du <str> en entier <int>
-            noteNow.append(round(noteSave*base/baseSave))   # Ajoute à la liste <noteNow> la note correspondant à la nouvelle base
-        f = open("score.txt", 'w', encoding='Utf-8')    # Ouverture du fichier score.txt en écriture avec l'encodage 'Utf-8'
-        f.write("###############\nBASE NOTE = "+str(base)+'\n###############\n\n')      # Ecriture avec encadré de la nouvelle base
-        for i in range(len(noteNow)):   # Pour i allant de 0 au nombre de note
-            f.write(tempsGraph[i]+"La meilleure note était : "+str(noteNow[i])+'/'+str(base)+'\n\n')  # Ecriture du groupe de note (date, note, saut de ligne)
-    elif bestNote[0] > 0:      # Si la base n'a pas changée et que la meilleure note de la partie est supérieure à 0 
-        f = open("score.txt", 'a', encoding='Utf-8')    # Ouverture du fichier score.txt en écriture avec l'encodage 'Utf-8'
-    if bestNote[0] > 0:    # Si la milleure note de la séance est supérieur à 0
+    bestIndex = 0       # Initialise <int> <bestIndex> pour sauvegarder l'index de la meilleur note de <list6>
+    for i in range(len(list6[0])):  # Analyse tout les éléments de la liste de rang 0 du tableau <list6>
+        if list6[0][i] > list6[0][bestIndex]:    # Si la note i de la liste du rang 0 du tableau <list6> est plus grand que l'index <bestIndex> de <list6>
+            bestIndex = i   # Affecte à <bestIndex> i de la boucle for
+    if len(list6[0]) > 0 and list6[0][bestIndex] > 0:     # Si la meilleur note est plus grande que 0/20
         now = datetime.now()    # now est une class contenant la date et l'heure actuelle de l'ordinateur
-        # Enregistrement du meilleur score avec la date et heure de la fin du programme
-        f.write("Le "+now.strftime('%d/%m/%y') + " à "+ bestNote[1] + "\nLa meilleure note était : "+str(bestNote[0])+'/'+str(base)+'\n\n')
+        list5[0].append(list6[0][bestIndex])     # Ajoute au tableau <list5> ma meilleur note
+        list5[1].append("Le "+now.strftime('%d/%m/%y') + " à "+ note[1][bestIndex] + '\n')      # Ajoute au tableau <list5> al date de cette meilleure note
+    moyenne = 0         # Initialise la variable <int> <moyenne> à 0
+    if len(list5[0]) > 0:
+        for i in list5[0]:
+            moyenne += i
+        moyenne = round(moyenne/len(list5[0]))
+    f = open('score+moyenne.txt', 'w', encoding='Utf-8')    # Ouverture du fichier score.txt en écriture avec l'encodage 'Utf-8'
+    f.write("###############\nBASE NOTE = "+str(var)+'\nMOYENNE = '+str(moyenne)+'/'+str(var)+'\n###############\n\n')      # Ecriture avec encadré de la nouvelle base
+    for i in range(len(list5[0])):   # Pour i allant de 0 au nombre de note du fichier texte
+        f.write(list5[1][i]+"La meilleure note était : "+str(list5[0][i])+'/'+str(base)+'\n\n')  # Ecriture du groupe de note (date, note, saut de ligne)
     f.close     # Fermeture du fichier score.txt
 
 # Définie la fonction init() pour 'initialisation'
 def init():
     # Cette fonction renvoie toutes les variables et listes du programme principale
-    f = open("mot.txt", 'r', encoding='Utf-8')      # Ouverture en lecture du fichier mot.txt avec l'encodage 'Utf-8'
     list1 = []      # Initialisation de la liste <list1>
     list2 = []      # Initialisation de la liste <list2>
     list3 = []      # Initialisation de la liste <list3>
     list4 = ['']*2  # Initialisation de la liste <list4> à deux index vide
     tout = []       # Initialisation de la liste <tout>
+    ################
+    # FICHIER MOT
+    f = open("mot.txt", 'r', encoding='Utf-8')      # Ouverture en lecture du fichier mot.txt avec l'encodage 'Utf-8'
     read = f.readline()    # Lecture de la première ligne du fichier
-    list4[0], list4[1] = read[1:3], read[4:6]     # Affectation des deux index de <list4> à l'intervale [1;3[ et [4;6[ de <read>
+    temp = read.split('=')
+    list4[0], list4[1] = temp[0][1:], temp[1][:-2]
     read = f.readline()     # Lecture de la ligne suivante
     # Affecte à la liste <tout> tout les mots, leurs traductions et leurs point de difficultée 
     while read != '\n':     # Tant que la ligne lu n'est pas égale à '\n'
@@ -803,18 +772,39 @@ def init():
         list1.append(l1)    # Ajouter à la liste <list1> le mot dans la langue1
         list2.append(l2)    # Ajouter à la liste <list2> la traduction dans la langue2
         list3.append(l3)    # Ajouter à la liste <list3> les points de difficultés du mot <mot>
-    # Enlève les parenthèses de chaque index i de <list3> et multiplie chque valeur par 10 après les avoir converties en <int>
+    # Enlève les parenthèses de chaque index i de <list3> et multiplie chaque valeur par 10 après les avoir converties en <int>
     list3 = [int(i[1:len(i)-1])*10 for i in list3]
     f.close()       # Ferme proprement le fichier mot.txt
-    f = open("score.txt", 'r', encoding='Utf-8')     # Ouverture en mode lectue avec l'encodage 'Utf-8' du fichier score.txt
+    ###################
+    # FICHIER SCORE
+    f = open('score+moyenne.txt', 'r', encoding='Utf-8')     # Ouverture en mode lectue avec l'encodage 'Utf-8' du fichier score.txt
     base = ''   # Initialise la variable <str> <base> à rien
     f.readline()  # Avance d'une ligne dans le fichier texte
     read = f.readline()     # Lecture de la deuxième ligne du fichier
     for i in range(12, len(read)):  # Pour i allant du premier caractère de la valeur de la base jusq'à son dernier caractère
         base += read[i]     # Ajoute à base par concaténation le caractère i de <read>
-    base = int(base)    # Convertion de la base <str> en <int>
+    for i in range(3):
+        f.readline()
+    save = f.readlines()   # Enregistre tout le reste des lignes non lu dans la liste <save>
+    f.close()   # Ferme le fichier
+    list5 = [[], []]   # Initialisation de la liste <list5> pour enregistrer les date et heures de chaque scores enregistrés 
+    # Chaque note est regroupé en 3 lignes
+    # 1.Date de la note
+    # 2.Note sur base
+    # 3.Saut de ligne
+    # Ainsi pour analyser toutes les notes en une boucle
+    # On divise par 3 la longeur de la liste <save> 
+    # Puis ensuite avec une fonction affine (i*3+k) on peut se déplacer dans le 'groupe' de la note
+    for i in range(int(len(save)/3)):    # Pour i allant de la première note à la dernière
+        read = ''   # Initialisation de <read> à une chaine de caractère vide
+        for j in range(26, len(save[i*3+1])):   # Pour i allant du premier caractère de la note au dernier
+            read += save[i*3+1][j]  # Concatenation de <temp> 
+        # Affectation à <list5> la variable de <temp> séparée par le caractère '/'
+        temp = read.split('/')    # Séparation de <temp> par le caractère '/' avec la fonction .split()
+        list5[0].append(int(temp[0]))   # Ajoute à la liste <list5> la note de la ligne i du fichier 
+        list5[1].append(save[i*3])  # Ajout de la date de la note dans la liste <list5>
     f.close     # Ferme le fichier settings.txt
-    return list1, list2, list3, list4, base, [[], []]      # Renvoie toutes les listes, variables et valeur demandé par l'appelle de la fonction init()
+    return list1, list2, list3, list4, list5, [[], []], int(base)      # Renvoie toutes les tableaux, listes, variables et valeurs demandé par l'appelle de la fonction init()
 
 # PROGRAMME PRINCIPALE
 from random import randint      # Importation de la fontion randint() du module random
@@ -823,7 +813,7 @@ import turtle as t      # Importation du module turtle, on l'appelle avec t.fonc
 # Affiche un messsage de bienvenue
 print("Bienvenue dans <LE Boss En Langue> !")
 # Initialise toutes les listes et variables avec la fonction init()
-motFR, motET, pointF, langue, base, note = init()
+motFR, motET, pointF, langue, noteSave, note, base  = init()
 play = True  # Initialisation de la variable <bool> play à True pour pouvoir rentrer dans la boucle while
 # Tant que play n'est pas pas vide
 # On peut aussi écrire <play != 0>
@@ -868,7 +858,8 @@ while play:
         # Appel de la procédure parametre() avec comme arguments motFR, motET, pointF et langue
         parametre(motFR, motET, pointF, langue)
     elif choix == '8':
-        graphique(note, base)
+        # Appel de la procédure graphique() avec comme arguments langue, noteSave, note et base
+        graphique(langue, note, noteSave, base)
     elif choix == '9':
         play = False    # Affecte à play l'état False pour sortir de la boucle
     else:    # Si aucune des conditions ci dessus n'a été respectées alors
@@ -877,4 +868,4 @@ while play:
 # Afficher "A bientôt" afin d'inciter le joueur à revenir
 print("A bientôt !")
 # Appel de la fonction save() avec comme arguments toutes les variables et listes
-save(motFR, motET, pointF, langue, base, note)
+save(motFR, motET, pointF, langue, noteSave, note, base)
