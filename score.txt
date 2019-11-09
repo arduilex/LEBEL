@@ -1,5 +1,6 @@
 ###############
 BASE NOTE = 20
+MOYENNE = 13/20
 ###############
 
 Le 20/10/19 à 9:44
@@ -15,7 +16,7 @@ Le 25/10/19 à 20:04
 La meilleure note était : 14/20
 
 Le 27/10/19 à 16:00
-La meilleure note était : 15/20
+La meilleure note était : 16/20
 
 Le 28/10/19 à 22:45
 La meilleure note était : 20/20
@@ -27,5 +28,20 @@ Le 31/10/19 à 13:16
 La meilleure note était : 16/20
 
 Le 31/10/19 à 13:47
-La meilleure note était : 13/20
+La meilleure note était : 12/20
+
+Le 31/10/19 à 14:21
+La meilleure note était : 12/20
+
+Le 31/10/19 à 14:59
+La meilleure note était : 14/20
+
+Le 31/10/19 à 15:14
+La meilleure note était : 16/20
+
+Le 31/10/19 à 15:19
+La meilleure note était : 10/20
+
+Le 31/10/19 à 16:32
+La meilleure note était : 16/20
 
