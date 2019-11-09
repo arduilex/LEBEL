@@ -48,4 +48,4 @@ Pour se faire, 5 modes sont disponibles :
     - Chaque fichier ``score.txt`` est individuelle en fonction du thème Ex : si le thème ``Physique`` est travaillé alors le fichier score s'appelle ``SCORE (Physique).txt``
 ## Mineur
   - Le thème est enregistré dans un index supplémentaire de la liste ``langue``
-  - Enregistre les fichier score ``.txt`` dans un dossier ``score``
+  - Enregistre les fichier score ``.txt`` dans un dossier [score](./score/)
