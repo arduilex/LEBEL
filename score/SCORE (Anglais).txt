@@ -1,0 +1,29 @@
+###############
+BASE NOTE = 20
+MOYENNE = 12/20
+###############
+
+Le 08/11/19 à 00:09
+La meilleure note était : 16/20
+
+Le 08/11/19 à 00:09
+La meilleure note était : 8/20
+
+Le 08/11/19 à 00:10
+La meilleure note était : 12/20
+
+Le 08/11/19 à 00:14
+La meilleure note était : 11/20
+
+Le 08/11/19 à 00:09
+La meilleure note était : 16/20
+
+Le 08/11/19 à 00:09
+La meilleure note était : 8/20
+
+Le 08/11/19 à 00:10
+La meilleure note était : 12/20
+
+Le 08/11/19 à 00:14
+La meilleure note était : 11/20
+
