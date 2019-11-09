@@ -1,6 +1,6 @@
 ####################################################################
 # Copyright (C) 2019-2019 BADER Alexandre <alexandrebader3@gmail.com>
-#8
+#
 # This file is part of LEBEL.
 #
 # LEBEL can not be copied and/or distributed without the express
@@ -16,9 +16,8 @@ def apprendre(list1, list2):
     # Cette procédure permet d'apprendre
     # Tout les mots en les affichants un par un
     # Initialisation de <int> <N> au nombre de mots que contient la liste <str> <list1>
-    N = len(list1)
     print("Bienvenue dans le mode APPRENDRE\n")
-    for i in range(N):      # Pour i allant de 0 à N
+    for i in range(len(list1)):      # Pour i allant de 0 au nombre de mot dans <list1>
         # Affiche le mot de <list1> et sa traduction de <list2>
         print(i+1, '. ', list1[i], ' = ', list2[i], sep='', end=' ')
         input()  # attend que l'utilisateur ai retenue les 2 mots
@@ -31,7 +30,6 @@ def reviser(list1, list2, list3):
     # avec un simple affichage du mot de la langue choisit
     # Lorsque l'utilisateur à trouver la traduction dans sa tête
     # il peut vérifier si cette dernière est juste en affichant la traduction correcte
-    N = len(list1)      # Initialisation de <int> <N> à la longeur de <list1>
     print("Bienvenue dans le mode REVISER\n")
     # Demande si l'utilisateur veut afficher les mots à traduires en langue 1 ou langue 2 (de la <list3>)
     print("Vous voulez réviser en ",
@@ -42,7 +40,7 @@ def reviser(list1, list2, list3):
     # une copie des valeurs des 2 listes (par adresse) est effectuée
     # sur leurs intervalles complets [:] = [0:len(list)]
     fr, et = list1[:], list2[:]     # Copie des liste <list1> et <list2> dans <fr> et <et>
-    for i in range(N):      # Pour i allant de 0 à N
+    for i in range(len(list1)):      # Pour i allant de 0 au nombre de mot dans <list1>
          # Affecter à r un nombre aléatoire compris entre 0 et la longeur de <fr> -1 pour ne pas dépasser l'index maximal de la liste
         r = randint(0, len(fr)-1)
         if langue == '1':   # Si la langue désirée est la première de <list3>
@@ -545,10 +543,10 @@ def graphique(note, base):
     def point():
         #Trace un gros point en bleu à chque valeur d'une note
         t.width(9)  # Règle l'épaisseur du stylo à 9
-        t.color('#d287d6') # Règle la couleur du stylo à rose-blanc
+        t.color(colorPoint) # Règle la couleur du stylo 
         s(0, 0)     # Fait semblant davancer pour que le stylo "imprime"
         t.width(4)  # Remet l'épaisseur su stylo à 4
-        t.color('#9d2fd5')  # Remet la couleur du stylo à violet
+        t.color(colorCourbe)  # Remet la couleur du stylo comme avant
 
     # Programme principale 
     print("Bienvenue dans le mode GRAPHIQUE")
@@ -598,22 +596,34 @@ def graphique(note, base):
             t.reset()
         except:
             print("ERREUR !\n2eme tentative d'ouverture...", end='')
+        ############################
+        x = 550     # Dimenssion global X
+        y = 500     # Dimenssion global Y
+        ############################
+        decX = -300  # Recule dans les négatif de x par rapport à x=0
+        decY = -240  # Descente dans les négatif de y par rapport à y=0
+        dec = 30     # Décalage entre le bout du repère et le bout de la courbe
+        miniDec = 4  # Pour ne pas que le dégradé touche l'axe y
+        colorRepere = '#4261CA'     # Bleu clair
+        colorCourbe = '#9D2fF5'     # Violet 
+        colorPoint = '#D287D6'      # Violet clair
+        # Initialisation de la liste <degrader> comportant un dégarder du rauge --> vert en #hexadécimal
+        # Chaque index correspond à une couleur décomposer en RGB
+        # Par exemple #FD 0D 01
+        #             253 13  1
+        #              R  G   B
+        # La couleur R=red=rouge étant dominante on obtient du rouge
+        colorDegrader = ['#FD0D01', '#FB2803', '#F94205', '#F85F06', '#F67708', '#F48F0A', '#F2A90C', '#F0BF0E', '#EFD50F', '#EDED11', '#D6EB13', '#BEE915', '#A5E816', '#90E618', '#78E41A', '#64E21C', '#52E01E', '#3CDF1F', '#2ADD21', '#23DB2C']
         t.reset()   # Remet tout les réglage à 0 et ouvre une fenêtre si ce n'est pas le cas
         t.bgcolor("black")  #Règle la couleur de l'arrière plan à noir
-        t.color("#4261ca") # Règle la couleur du stylo à bleu
+        t.color(colorRepere) # Règle la couleur du stylo à bleu
         t.speed(0)  # Règle la vitesse de déplacement à 4
         t.width(5)  # Règle l'épasseur du stylo à 3
         t.ht()      # Cache le stylo
         t.up()      # Relève le stylo
-        ############################
-        x = 550     # Dimenssion global X
-        y = 460     # Dimenssion global Y
-        ############################
-        descend = -220  # Descente dans les négatif de y par rapport à y=0
-        dec = 30    # Décalage entre le bout du repère et le bout de la courbe
         # Affiche axe x et y
         print("OK !\nConsruction du repère x, y...", end='')
-        s(-300, descend)       # Se place à l'origine du repère [0;0]
+        s(decX, decY)       # Se place à l'origine du repère [0;0]
         t.down()      # Pose le stylo
         s(0, y)       # Trace l'axe des ordonnées y
         t.left(90)    # Pour tracer la flèche dans le bon sens
@@ -629,32 +639,25 @@ def graphique(note, base):
         # Construction lignes dégrdées
         print("OK !\nConstruction de l'échelle en ordonnée...", end='')
         t.width(4)    # affine l'épaisseur du stylo
-        s(3, 0)     # Se décale un peu vers la droite
-        # Initialisation de la liste <degrader> comportant un dégarder du rauge --> vert en #hexadécimal
-        # Chaque index correspond à une couleur décomposer en RGB
-        # Par exemple #FD 0D 01
-        #             253 13  1
-        #              R  G   B
-        # La couleur R=red=rouge étant dominante on obtient du rouge
-        degrader = ['#FD0D01', '#FB2803', '#F94205', '#F85F06', '#F67708', '#F48F0A', '#F2A90C', '#F0BF0E', '#EFD50F', '#EDED11', '#D6EB13', '#BEE915', '#A5E816', '#90E618', '#78E41A', '#64E21C', '#52E01E', '#3CDF1F', '#2ADD21', '#23DB2C']
+        s(miniDec, 0)     # Se décale un peu vers la droite
         for i in range(20):     # Trace 20 lignes en partant de 0
-            t.color('#4261ca')     # Règle la couleur à bleu
+            t.color(colorRepere)     # Règle la couleur 
             if i % 2 == 0:      # Si i est pas divisible par 2
-                if i <10:       # Si i n'a pas encore atteint la dizaine
-                    ecrire(str(i), -15, -7)  # Ecrit l'échelle (rapproché de l'axe y)
-                else:   # Si la division de i par 2 possède un rese
-                    ecrire(str(i), -20, -7)  # Ecrit l'échelle (éloigné de l'axe y)
+                if i < 10:       # Si i n'a pas encore atteint la dizaine
+                    ecrire(str(i), -17, -7)  # Ecrit l'échelle (rapproché de l'axe y)
+                else:   # Si la division de i par 2 possède un reste
+                    ecrire(str(i), -23, -7)  # Ecrit l'échelle (éloigné de l'axe y)
             t.up()  # Lève le stylo
             s(0, (y-dec)/20)     # Monte de quelques ordonnées sur l'axe y
-            t.color(degrader[i])   # Règle la couleur à la couleur hexadécimal du rang i de <degrader>
+            t.color(colorDegrader[i])   # Règle la couleur à la couleur hexadécimal du rang i de <degrader>
             t.down()    # Pose le stylo
-            s(x-dec, 0) # Trace la ligne
+            s(x-dec-miniDec, 0) # Trace la ligne
             t.up()  # Lève le stylo
-            s(-(x-dec), 0)  # Reviens sur l'axe des ordonnées
-        t.color('#4261ca')     # Règle la couleur sur bleu
-        ecrire('20', -20, -7) # Ecrit l'échelle : 20
+            s(-(x-dec-miniDec), 0)  # Reviens sur l'axe des ordonnées
+        t.color(colorRepere)     # Règle la couleur 
+        ecrire('20', -23, -7) # Ecrit l'échelle : 20
         t.up()  # Lève le stylo
-        s(-3, 0)    # Se recolle àl'axe y
+        s(-miniDec, 0)    # Se recolle àl'axe y
         s(0, -(y-dec))  # Se place sur l'origine
         # Construction échelle temps + Initialisation graphique
         if len(noteGraph) > 30:     # Si le nombre de note est trop grand
@@ -674,7 +677,7 @@ def graphique(note, base):
                 ecrire(tempsGraph[i], -14, -20)     # Ecrire la date ou heure en allant au plus proche de l'axe des absisses
             s(xStep, 0)     # Avance de quelques x 
         # Initialisation graphique
-        t.color('#9d2fd5')  # Règle la couleur sur violet
+        t.color(colorCourbe)  # Règle la couleur
         s(-(xStep*len(tempsGraph)), 0)      # Retourne à l'origine [0;0]
         s(0, (noteGraph[0]*(y-dec)/20))     # Monte en y en fonction de la grandeur de la 1ere note de <noteGraph>
         t.down()    # Pose le stylo
@@ -684,7 +687,7 @@ def graphique(note, base):
         print("OK !\nConstruction de la courbe...", end='')
         # Trace le graphique
         for i in range(1, len(noteGraph)):  # Pour i allant de 0 à la dernière note de <noteGraph>
-            t.goto(t.xcor() + xStep, noteGraph[i]*yStep+descend)  # Avance de xStep et se place sur les ordonnées en fonction de la note
+            t.goto(t.xcor() + xStep, noteGraph[i]*yStep+decY)  # Avance de xStep et se place sur les ordonnées en fonction de la note
             point()     # Trace un point
         print("OK !\n")
     input('Appuiez sur entrée pour revenir au menu...')
@@ -749,7 +752,7 @@ def save(list1, list2, list3, list4, base, note):
     # Si la base du fichier score.txt <baseSave> est égale à la base actuelle
     # Il est inutile de convertir toutes les notes car elles ne changeront pas !
     if baseSave != base:    # Si la <basSave> est différente de la base actuelle
-        tempsGraph = []   # Initialisation de la liste <tempsGraph> pour enregistrer les date et heures de chaque scores enregistrés 
+        dateSave = []   # Initialisation de la liste <dateSave> pour enregistrer les date et heures de chaque scores enregistrés 
         noteNow = []    # Initialisation de la liste <noteNow> pour les nouvelles notes de la nouvelle base 
         # Chaque note est regroupé en 3 lignes
         # 1.Date de la note
@@ -759,7 +762,7 @@ def save(list1, list2, list3, list4, base, note):
         # On divise par 3 la longeur de la liste <save> 
         # Puis ensuite avec une fonction affine (i*3+k) on peut se déplacer dans le 'groupe' de la note
         for i in range(int(len(save)/3)):    # Pour i allant de la première note à la dernière
-            tempsGraph.append(save[i*3])  # Ajout de la date de la note dans la liste <tempsGraph>
+            dateSave.append(save[i*3])  # Ajout de la date de la note dans la liste <dateSave>
             temp = ''   # Initialisation de <temp> à une chaine de caractère vide
             for j in range(26, len(save[i*3+1])):   # Pour i allant du premier caractère de la note au dernier
                 temp += save[i*3+1][j]  # Concatenation de <temp> 
@@ -770,7 +773,7 @@ def save(list1, list2, list3, list4, base, note):
         f = open("score.txt", 'w', encoding='Utf-8')    # Ouverture du fichier score.txt en écriture avec l'encodage 'Utf-8'
         f.write("###############\nBASE NOTE = "+str(base)+'\n###############\n\n')      # Ecriture avec encadré de la nouvelle base
         for i in range(len(noteNow)):   # Pour i allant de 0 au nombre de note
-            f.write(tempsGraph[i]+"La meilleure note était : "+str(noteNow[i])+'/'+str(base)+'\n\n')  # Ecriture du groupe de note (date, note, saut de ligne)
+            f.write(dateSave[i]+"La meilleure note était : "+str(noteNow[i])+'/'+str(base)+'\n\n')  # Ecriture du groupe de note (date, note, saut de ligne)
     elif bestNote[0] > 0:      # Si la base n'a pas changée et que la meilleure note de la partie est supérieure à 0 
         f = open("score.txt", 'a', encoding='Utf-8')    # Ouverture du fichier score.txt en écriture avec l'encodage 'Utf-8'
     if bestNote[0] > 0:    # Si la milleure note de la séance est supérieur à 0
