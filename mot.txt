@@ -1,19 +1,34 @@
-[FR=EN]
+[Physique] [FR=DE]
+pression=Druck.(1)
+onde sonore=Schallwellen.(1)
+oscillation=Schwingung.(1)
+voix=Stimm.(0)
+diapason=Stimmgabel.(1)
+corde vocal=Stimmbäder.(1)
+compressé=zusammengedrückt.(1)
+propagation=Ausbreitung.(1)
+fragment=Teichen.(1)
+distance=abstand.(1)
+vitesse=geschwindigkeit.(1)
+
+[Anglais] [FR=EN]
 chat=cat.(0)
-aujourd'hui=today.(1)
+aujourd'hui=today.(0)
 chien=dog.(0)
 manger=eat.(0)
-sourire=smile.(2)
+sourire=smile.(0)
 voiture=car.(0)
 arbre=tree.(0)
 plage=beatch.(0)
 son=sound.(0)
 livre=book.(0)
 
-[FR=DE]
+[AllBasic] [FR=DE]
 pomme=Apfel.(0)
-ordinateur=Computer.(0)
+ordinateur=Computer.(1)
 maison=Hause.(0)
-chat=Katze.(3)
-chien=Hunde.(10)
-arbre=Baum.(4)
+chat=Katze.(0)
+chien=Hunde.(0)
+arbre=Baum.(1)
+soleil=Sonne.(1)
+
