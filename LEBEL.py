@@ -439,7 +439,7 @@ def pendu(list1, list2, list3):
     input("\nFin du jeu pendu\nAppuiez sur entrée pour revenir au menu...")
 
 # Définie la procédure parametre() avec les paramètres <list1>, <list2>, <list3> <list4> et <list5>
-def parametre(list1, list2, list3, list4, list5):
+def parametre(list1, list2, list3, list4, list5, list6):
     # Cette procédure permet 3 actions:
     # 1. Ajouter des mots, afin de na pas à avoir le faire depuis un éditeur texte en dehors du progrmame
     # 2. Reset les point faibles, si par exemple une autre personne veut apprendre les mots
@@ -459,8 +459,8 @@ def parametre(list1, list2, list3, list4, list5):
                 print("La base doit être positive !")
         for i in range(len(list5[0])):   # Pour i allant de 0 au nombre de note compris dans la liste d'index 0 du tablau note
             list5[0][i] = round(list5[0][i] / base * newBase)     # Convertir la note de <list5> en fonction de la nouvelle base
-        for i in range(len(list5[0])):
-            list5[0][i] = round(list5[0][i] / base * newBase)     # Convertir la note de <list5> en fonction de la nouvelle base
+        for i in range(len(list6[0])):
+            list6[0][i] = round(list6[0][i] / base * newBase)     # Convertir la note de <list6> en fonction de la nouvelle base
         base = newBase  # Affecter à la variable global <base>, la variable local <newBase>
     def reset():
         # Ce reset est déconsillé d'être effectué car il ne sera plus possible de connaître ses plus grosses difficultées
@@ -717,6 +717,7 @@ def save(list1, list2, list3, list4, list5, list6, var):
     sortir = False  # Variable <bool> pour sortir de la boucle 
     for l in f:     # Lecture de tout le fichier texte
         if l == find:   # Si la ligne <l> est égale à la ligne recherché
+            saveFirst.append(l)     # Enregistre la ligne theme + langue car elle ne change pas
             sortir = True   # Une fois tout les mots précédents le thèmes actuelle sauvegardés, on peut sortir de la boucle 
         if sortir == True:  # Il faut d'abord avoir trouvé le thème qui à été choisit avant de quitter
             if l == '\n':  # Il faut d'abord passé le thème qu'on va re écrire avec les listes !
@@ -728,8 +729,6 @@ def save(list1, list2, list3, list4, list5, list6, var):
     f = open("mot.txt", 'w', encoding='Utf-8')  # Ouverture du fichier mot.txt en écriture (écrase le fichier éxistant) avec l'encodage 'Utf-8
     for ligne in saveFirst:     # Ajout de la 1er sauvegarde non utilisée dans le programme
         f.write(ligne)      # Ecriture ligne par ligne ( car f.write(saveFirst) retourne une erreur, car write() ne peux que écrire du <str> pas une liste)
-    # Première ligne de la nouvelle sauvegarde : sujet et les 2 langues entre crochet : [sujet] [langue1=langue2]
-    f.write('['+list4[2]+'] ['+str(list4[0])+'='+str(list4[1])+']\n')
     # Ecriture de toutes les paires de mots avec leurs points de difficultés 
     # ligne par ligne : mot=saTradution.(pointDeDifficultés)
     for i in range(len(list1)):    #Pour i allant de 0 au nombre de mot total dans <list1> 
@@ -747,10 +746,10 @@ def save(list1, list2, list3, list4, list5, list6, var):
         list5[0].append(list6[0][bestIndex])     # Ajoute au tableau <list5> ma meilleur note
         list5[1].append("Le "+now.strftime('%d/%m/%y') + " à "+ note[1][bestIndex] + '\n')      # Ajoute au tableau <list5> al date de cette meilleure note
     moyenne = 0         # Initialise la variable <int> <moyenne> à 0
-    if len(list5[0]) > 0:
-        for i in list5[0]:
-            moyenne += i
-        moyenne = round(moyenne/len(list5[0]))
+    if len(list5[0]) > 0:   # Si il y a au moins une note
+        for i in list5[0]:  # Calcule la somme des notes
+            moyenne += i    # Incrémente 1 à <i>
+        moyenne = round(moyenne/len(list5[0]))      # Calcule la moyenne
     f = open(('score\SCORE ('+list4[2]+').txt'), 'w', encoding='Utf-8')    # Ouverture du fichier score.txt en écriture avec l'encodage 'Utf-8'
     f.write("###############\nBASE NOTE = "+str(var)+'\nMOYENNE = '+str(moyenne)+'/'+str(var)+'\n###############\n\n')      # Ecriture avec encadré de la nouvelle base
     for i in range(len(list5[0])):   # Pour i allant de 0 au nombre de note du fichier texte
@@ -798,12 +797,12 @@ def init():
             print("Impossible !")   # Affiche une erreur avant de recommencé 
     if choix == lim:    # Si le choix est égale au dernier qui est 'ajouter un thème'
         newTheme = input("Quel est le nom de votre nouveau thème ? :")     # Saisir le nouveau thème
-        print("En 2 lettres, entrez la langue des mots")    # Demande d'entré la première langue
+        print("En 2 lettres, entrez la langue du thème")    # Demande d'entré la première langue
         l1 = input("(Ex : 'fr', 'de', 'en') : ").upper()     # la fonction .upper() retourne la chaine de caractère avec des majuscules
-        print("En 2 lettres, entrez la langue des mots traduits")   # La 2eme langue pour la traduction
+        print("En 2 lettres, entrez la langue de sa traduction")   # La 2eme langue pour la traduction
         l2 = input("(Ex : 'de', 'en', 'fr') : ").upper()    # la fonction .upper() retourne la chaine de caractère avec des majuscules
         f = open("mot.txt", 'a', encoding='Utf-8')      # Ouverture en écriture (ajout) du fichier mot.txt avec l'encodage 'Utf-8'
-        f.write("["+ newTheme+ "] ["+ l1+ '='+ l2+ "]\n")   # Enregistre directement le nouveau thème dans le fichier mot.txt...
+        f.write("["+ newTheme+ "] ["+ l1+ '='+ l2+ "]\n\n")   # Enregistre directement le nouveau thème dans le fichier mot.txt...
         theme.append([newTheme, l1, l2])    # ... Et comme la lecture de ce fichier à déjà été effectuée ajouter à <theme> le nouveau thème avec ses langues associées
     i = choix - 1   # Affecte à <i> la valeur de <choix> - 1 car une liste commence par l'index 0
     list1 = []      # Initialisation de la liste <list1> pour "mot"
@@ -823,8 +822,12 @@ def init():
         list3.append(theme[i][j*3+2])   # Troisième index du groupe de 'mot'
     # Enlève les parenthèses de chaque index i de <list3> et multiplie chaque valeur par 10 après les avoir converties en <int>
     list3 = [int(i[1:len(i)-1])*10 for i in list3]
-    if not len(list3):
-        input("/!\\ Vous devez absolument ajoutez des mots dans les paramètres ! /!\\")
+    if not len(list3):  # Si le nombre de valeur dans <list3> ne renvoie PAS de valeur ce'ts à dire 0
+        # Il faut absolument ajouter des mots de ce thème, sinon des erreurs de divisions se produiront dans test(), controle(),...
+        # car comme il n'y a aucun mot, les procédures vont passer la boucle for (pour i allande de 0 à 0), puis afficher la note /base,
+        # pour se faire il faut diviser par le nombre <n> de mot avant de multiplier par la <base>. 
+        # Or ce <n> est égale à 0 et une division par 0 est impossible !
+        input("\n/!\\ N'oubliez pas avant tout d'ajouter\ndes mots de ce thème dans les paramètres /!\\")  
     ###################
     # FICHIER SCORE
     try:
@@ -912,7 +915,7 @@ while play:
         pendu(motFR, motET, langue)
     elif choix == '7':
         # Appel de la procédure parametre() avec comme arguments motFR, motET, pointF et langue
-        parametre(motFR, motET, pointF, langue, note)
+        parametre(motFR, motET, pointF, langue, note, noteSave)
     elif choix == '8':
         # Appel de la procédure graphique() avec comme arguments langue, noteSave, note et base
         graphique(langue, note, noteSave, base)
