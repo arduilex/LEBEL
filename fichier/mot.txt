@@ -1,0 +1,35 @@
+[Physique] [FR=DE]
+pression=Druck.(0)
+onde sonore=Schallwellen.(0)
+oscillation=Schwingung.(0)
+voix=Stimm.(0)
+diapason=Stimmgabel.(0)
+corde vocal=Stimmbäder.(0)
+compressé=zusammengedrückt.(0)
+propagation=Ausbreitung.(0)
+fragment=Teichen.(0)
+distance=abstand.(0)
+vitesse=geschwindigkeit.(0)
+
+[Anglais] [FR=EN]
+chat=cat.(0)
+aujourd'hui=today.(0)
+chien=dog.(0)
+manger=eat.(0)
+sourire=smile.(0)
+voiture=car.(0)
+arbre=tree.(0)
+plage=beatch.(0)
+son=sound.(0)
+livre=book.(0)
+
+[AllBasic] [FR=DE]
+pomme=Apfel.(1)
+ordinateur=Computer.(2)
+maison=Hause.(0)
+chat=Katze.(3)
+chien=Hunde.(0)
+arbre=Baum.(1)
+soleil=Sonne.(1)
+chat=Katze.(0)
+

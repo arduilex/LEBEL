@@ -1,0 +1,8 @@
+####GRAPHIQUE####
+manuel=True
+x=500
+y=500
+
+####POINT####
+faute=+100
+juste=-4
