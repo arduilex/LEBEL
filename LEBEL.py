@@ -9,8 +9,6 @@
 
 # Ce programme est la v4.0 du projet LEBEL
 # Cette version est la 10eme et dernière de ce mini projet
-# Ce fut un grand plaisir de le concevoir de la v1.0 jusqu'à la v4.0
-# Ca va me manquer :'( Vivement un nouveau projet ! :D
 # Débuté le 07/11/2019 fini le 14/11/19
 # Par Alexandre BADER
 
@@ -101,7 +99,7 @@ def test(mot1, mot2, langue):
             print(">BRAVO !") # Féliciter le joueur
             p += 1    # Incrémenter 1 à la variable <p>
         else:
-            print(">FAUX, la réponse était <",juste,'>',sep='')    # Affiche la bonne traduction
+            print("> FAUX, la réponse était <",juste,'>',sep='')    # Affiche la bonne traduction
         # Supprime l'index <r> des listes <m1> et <m2> pour ne pas que la fonction randint() ressorte le même index
         del m1[r]       # Supprime l'index <r> de la liste <m1>
         del m2[r]       # Supprime l'index <r> de la liste <m2>
@@ -129,7 +127,7 @@ def controle(mot1, mot2, note, faible, add):
             mot, juste = m1[r], m2[r]
             corrige.append(mot)    # Ajoute à la liste <corrige> le mot à traduire <mot>
              # Affecte à la variable <int><index> l'index <i> du mot <juste> de la liste <mot2>
-             # grâce la class .index() qui retourne l'index de la valeur recherchée dans la liste demandée
+             # grâce la fonction .index() qui retourne l'index de la valeur recherchée dans la liste demandée
             index = mot2.index(juste)
         else:    # La probabilité de traduire un mot en langue2 est de 50%
             # Affecte les mots du rang <r> des listes <m2> et <m1> dans les variables, de types string, <mot> et <juste>
@@ -144,13 +142,13 @@ def controle(mot1, mot2, note, faible, add):
             if faible[index] > 0:    # Si le mot actuelle est une difficulté
                 # Enlever à l'index <index> de la liste <faible> n points de difficultés
                 # de l'index [1][1] du tableau <add> pour avoir eu juste
-                faible[index] += add[1][1]   # Incrémentaion à l'index <index> de la liste <faible>
+                faible[index] += add[1]   # Incrémentaion à l'index <index> de la liste <faible>
                 if faible[index] < 0:    # Si la nouvelle valeur de l'index <index> de la liste <faible> est négative
                     faible[index] = 0    # Remettre la valeur de cette index à 0
             p += 1  # Incrémente 1 point à la variable <p> pour la note
             del corrige[-1] # Supprime le dernier élément de <corrige> car le mot demandé a bien été traduit
         else:    # Sinon (si la traduction saisie est fausse)
-            faible[index] += add[1][0]  # Ajouter à lindex de la liste <faible> n points de difficultés
+            faible[index] += add[0]  # Ajouter à lindex de la liste <faible> n points de difficultés
             corrige.append(juste)       # Ajoute le mot juste à la liste <corrige>
             if reponse:    # Si la traduction saisie contient au moins 1 caractère (!=vide)
                 corrige.append(reponse)    # Ajouter à la lsite <corrige> la réponse fausse saisie <reponse>
@@ -174,7 +172,7 @@ def controle(mot1, mot2, note, faible, add):
             print()    # Saute une ligne
     # Enregistre le score dans la liste <note>
     note[0].append(score)    # <note> étant un tableau par adresse, sa nouvelle valeur sera conservée à la sortie de la procédure
-    now = datetime.now()     # .now() est une class qui contient la date et le temps de l'ordinateur 
+    now = datetime.now()     # now est une class qui contient la date et le temps de l'ordinateur 
     note[1].append(now.strftime('%H:%M'))    # .strftime() va rechercher les valeurs demandées par '%' (ex: '%H'= heure actuelle)
     if p == N or reponse in ['Y', 'y']:    # Si il n'y a pas de corrigé ou à l'inverse si le corrigé à bien été lu...
         # Pour ne pas avoir un retour trop brusque sur le menu
@@ -208,7 +206,7 @@ def hard(mot1, mot2, faible, langue):
                     # Inverser les valeurs <i> et <i>+1 de la 1ere et 2eme (j) liste du tableau <top>
                     top[j][i], top[j][i+1] = top[j][i+1], top[j][i] 
     # Vérifie si la première liste de <top> contient que des 0
-    # Si le nombre, par la class .count(), de 0 contenu dans la liste d'index 0
+    # Si le nombre, par la fonction .count(), de 0 contenu dans la liste d'index 0
     # du tableau <top> est le même que la longueur de cette même liste
     # cela signifie que top[0] ne comporte que des 0 c.a.d. aucune difficulté
     if top[0].count(0) == N:
@@ -309,8 +307,8 @@ def pendu(mot1, mot2, langue):
         # Si la lettre est valide, vérifier si elle appartient à <mot>
         for i in range(len(trouve)):    # Pour i allant de 0 à la longueur de la liste <trouve>
             # Si la lettre correspond à l'index <i> du mot à trouver <mot>
-            if lettre == mot[i]:
-                trouve[i] = lettre   # Affecter au rang i de <trouve> la <lettre>
+            if lettre.upper() == mot[i].upper():
+                trouve[i] = mot[i]   # Affecter au rang i de <trouve> la lettre <mot[i]>
                 perdu = 0            # Sortir de la foncction en retournant False
             # Sinon si le mot <mot> contient des accents (é, è,...) de <strE>
             # et que la <lettre> est 'e'
@@ -404,8 +402,14 @@ def pendu(mot1, mot2, langue):
     else:    # Sinon
         # Affecter à <mot> un mot aléatoire de la liste <mot2>
         mot = mot2[randint(0, len(mot2)-1)]
+    # Ce script enlève l'article du mot
+    if ' ' in mot[:4]:    # Si les 3 permières caractères de <mot> contiennent un espace
+        i = mot[:4].index(" ")    # Enregistre l'index de <mot> où se trouve le caractère ' '
+        mot = mot[i+1:]    # Affecte à <mot> le mot sans l'article
     # Initialiser la liste <strE> correspondant à tous les accents possible de la lettre 'e'
     strE = ['é', 'è', 'ê', 'ë']
+    # Liste <char> des caractère indésirables qu'on veut montrer dans la liste <trouve>
+    strSpecial = [' ', "'", '-', '&']
     # Initialisation du mot à trouver <str><trouve> par une liste contenant 
     # des caracrtères underscore = '_' fois la longueur du mot à trouver <mot>
     trouve = ['_']*len(mot)
@@ -417,10 +421,13 @@ def pendu(mot1, mot2, langue):
     for i in range(len(mot)): # Pour <i> allant de 0 à la longueur de <mot>
         if mot[i] in strE:    # Si la lettre i de <mot> appartient à la liste <strE>
             accent = True      # Affecter à accent l'état True
-        elif mot[i] == "'":   # Sinon si le <i>eme caractère de <mot> est égale à "'" 
-            trouve[i] = "'"    # Remplacer la valeur <i> de <trouve> par le même caractère <i> de <mot>
-        elif mot[i] == '-':   # Sinon si l'index <i> de <mot> contient un autre caractère spécial
-            trouve[i] = '-'    # Rempalcer la valeur <i> de <trouve> par ce même caractère.
+        else:    # Sinon, si la lettre <i> contient autre chose que <strE>
+            for j in range(len(strSpecial)):   # Compare la lettre avec toutes les <char> de <strSpecial>
+                # Si le <i>eme caractère de <mot> est égale à la valeur d'index <i> de <strSpecial>
+                if mot[i] == strSpecial[j]:
+                    # Remplacer la valeur <i> de <trouve> par le même
+                    # caractère <i> de <mot> (ou strSpecial[i] c'est la même chose)
+                    trouve[i] = mot[i]
     # Initialisation du tableau 17x8 <potence> pour afficher graphiquement la potence et le pendu
     for i in range(8):    # Pour <i> allant de 0 à 8
         # Ajouter à la liste <potence>, une liste vide de 17 espaces ' '
@@ -489,7 +496,7 @@ def parametre(mot1, mot2, faible, langue, note, noteSave, settings):
             # Affecter à tout les index de <list> la valeur 0
             for i in range(len(list)): # Pour i allant de 0 au nombre de valeur de <list>
                 list[i] = 0    # Affecter à l'index i de <faible> la valeur 0
-    def add(list1, list2, list3):
+    def add(list1, list2, list3, list4):
         # Pour ajouter des mots, 3 listes doivent être affectées : <list1> et <list2>
         # Il n'y pas plus à faire, et ces mots seront bien enregistrés dans le fichier mot.txt lors de la fermeture du programme
         print("Pour ajouter des mots suivez les instructions !")
@@ -500,8 +507,8 @@ def parametre(mot1, mot2, faible, langue, note, noteSave, settings):
             # Donc cette liste mise en argument lors de l'appelle de la procédure add() sera bien affectée
             list1.append(input())    # Ajoute le mot <input()> dans <list1>
             print("Entrez sa traduction en", list3[1], ': ', end='')    # Demande la traduction du mot dans la langue de l'index 1 de <langue>
-            list3.append(input())   # Ajoute la traduction saisie dans <list3>
-            faible.append(0)     # Ajoute 0 dans la liste <faible> (pour 0 point de difficulté pour la nouvelle paire de mot)
+            list2.append(input())   # Ajoute la traduction saisie dans <list2>
+            list4.append(0)     # Ajoute 0 dans la liste <list4> (pour 0 point de difficulté pour la nouvelle paire de mot)
             if not input("Encore un autre ? (Y/n) : ") in ['Y','y']:  # Si la réponse ne correspond pas au 'Y, y' de Yes, quitter la boucle
                 ajout = False   # Affecter à <ajout> la valeur 0 pour quitter la boucle while
     def setGraph(list):
@@ -541,7 +548,7 @@ def parametre(mot1, mot2, faible, langue, note, noteSave, settings):
         choix = input("Executer le paramètre : ")
         print()  # Saute une ligne
         if choix == '1':     # Si le choix est égale à '1'
-            add(mot1, mot2, langue)    # Appelle de la procédure add() sans argument
+            add(mot1, mot2, langue, faible)    # Appelle de la procédure add() sans argument
         elif choix == '2':   # Si le choix est veut dire "Reset les pointF"
             reset(faible)    # Appelle de la procédure reset() sans argument
         elif choix == '3':   # Si le choix est centré sur la modification de la base pour les notes
@@ -558,7 +565,7 @@ def parametre(mot1, mot2, faible, langue, note, noteSave, settings):
             input("\nLa commande s'est terminée avec succès !\nAppuiez sur entrée pour revenir au menu...")   # Bloque le programme jusq'à une action de l'utilisateur
 
 # Définie la procédure save() avec les paramètres <note>, <noteSave> <mode> et <base>
-def graphique(note, noteSave, mode, base):
+def graphique(note, noteSave, manuel, base):
     # Cette procédure, grâce au module 'turtle.py' affiche un graphique sur un repère x, y 
     # Les ordonnées représentent la note sur 20 en fonction du temps (absisses) qui précisons, n'est pas à l'échelle 
     # On peut afficher 2 catégories de note différentes :
@@ -641,14 +648,15 @@ def graphique(note, noteSave, mode, base):
         t.width(5)  # Règle l'épasseur du stylo à 5
         t.ht()      # Cache le stylo
         t.up()      # Relève le stylo
-        # Si le mode manuel est vrai (True) alors affecter à <x> et <y> les valeurs enregistré dans <mode>
-        if mode[0][0] == True:  
-            x = mode[0][1]    # Dimenssion global X à aprtir de <mode>
-            y = mode[0][2]    # Dimenssion global Y à partir de <mode>
-        else:   # Si le mode manuel est faux donc automatique
+        # Si le mode manuel est vrai (True) alors affecter à <x> et <y> les valeurs enregistré dans <manuel>
+        if manuel[0] == True:  
+            x = manuel[1]    # Dimenssion global X à aprtir de <manuel>
+            y = manuel[2]    # Dimenssion global Y à partir de <manuel>
+        else:   # Si le mode manuel est faux, donc automatique
             t.color("white")    # Règle la couleur du stylo à blanc
             # Demande de bouger la fenêtre 
             ecrire("Ajustez la taille de la fenêtre", 0, 0, 20, 'center')
+            ecrire("Ensuite appuez sur [entrée] dans le terminal", 0, -30, 20, 'center')
             print("OK!\nDéfinissez la taille du grapgique...", end='')
             input()    # Attend que l'utilisateur ai fini ses réglages
             # t.window_height() est une fonction qui retourne la hauteur de la fenêtre turtle.py
@@ -737,7 +745,7 @@ def graphique(note, noteSave, mode, base):
         t.down()    # Pose le stylo
         point(colorPoint, colorCourbe)     # Trace un point
         t.width(4)  # Règle l'épaisseur u stylo à 4
-        t.speed('slowest') # Change la vitesse à lent
+        t.speed(round(len(noteGraph)/10)+1) # Change la vitesse à lent
         print("OK !\nConstruction de la courbe...", end='')
         # Trace le graphique
         for i in range(1, len(noteGraph)):  # Pour i allant de 0 à la dernière note de <noteGraph>
@@ -868,7 +876,7 @@ def init():
         # On affiche aussi le nombre de mot dans chauqe theme :
         # Comme un 'mot' corresond au (mot) + (sa tradution) + (son point faible) il faut diviser le nombre total de valeur par 3
         # Avant cela ne pas oublier de soustraire 3 car on ne compte pas les 3 première valeurs correspondanttes au (theme) + (langue1) + (langue2)
-        print(i+1, '. <', theme[i][0], '> [', theme[i][1],'=', theme[i][2],'] (', int((len(theme[i])-3)/3), 'mots)', sep='')
+        print(i+1,'. <',theme[i][0],'> [',theme[i][1],'=',theme[i][2],'] (',int((len(theme[i])-3)/3),'mots)',sep='')
     lim = len(theme)+1  # la variable <lim> sert aussi bien à numéroter le mode 'créer' qu'à faire en sorte que le <choix> est dans l'intervale des choix discponibles
     print(lim, '. Créer un nouveau thème', sep='')  # Affcihe la dernière option après le nombre de thème
     choix = 100     # Pour rentrer dans la boucle while
@@ -885,10 +893,12 @@ def init():
         f = open("fichier/mot.txt", 'a', encoding='Utf-8')      # Ouverture en écriture (ajout) du fichier mot.txt avec l'encodage 'Utf-8'
         f.write("["+ newTheme+ "] ["+ l1+ '='+ l2+ "]\n\n")   # Enregistre directement le nouveau thème dans le fichier mot.txt...
         theme.append([newTheme, l1, l2])    # ... Et comme la lecture de ce fichier à déjà été effectuée ajouter à <theme> le nouveau thème avec ses langues associées
+    else:    # Si le choix est dans les thèmes
+        print("Vous avez choisi le thème <",theme[choix-1][0],'>', sep='')    # Afficher le thème choisi
     i = choix - 1   # Affecte à <i> la valeur de <choix> - 1 car une liste commence par l'index 0
-    mot1 = []      # Initialisation de la liste <mot1> pour "mot"
-    mot2 = []      # Initialisation de la liste <mot2> pour "traduction"
-    faible = []      # Initialisation de la liste <faible> pour "point faible"
+    mot1 = []       # Initialisation de la liste <mot1> pour "mot"
+    mot2 = []       # Initialisation de la liste <mot2> pour "traduction"
+    faible = []     # Initialisation de la liste <faible> pour "point faible"
     # Chaque 'mot' du theme choisit est regroupé en 3 valeurs
         # 1.Mot
         # 2.Traduction
@@ -946,18 +956,18 @@ def init():
     ######################
     # FICHIER SETTINGS
     f = open('fichier/settings.txt', 'r', encoding='Utf-8')     # Ouverture en mode lecture avec l'encodage 'Utf-8' du fichier settings.txt
-    read = f.readlines()
-    f.close()     # Ferme le fichier settings.txt
+    read = f.readlines()    # Enregistre le fichier dans la liste <read>
+    f.close()          # Ferme le fichier settings.txt
     note = [[], []]    # Initialise la liste <note> pour les paramètres
-    etat = read[1][7:-1]
-    if etat == 'True':
+    etat = read[1][7:-1]    # Affecte à <str><etat> la valeur de la 2eme ligne 
+    if etat == 'True':      # Si la chaine de caractère de <etat> est égale à 'True' 
         note[0].append(True)    # Les dimmenssions du repère correspondes au fichier settings.txt
-    else:
-        note[0].append(False)    # Les dimmensions sont en fonction de la taille de la fenêtre
+    else:   # Le mode manuel est faux 'False'
+        note[0].append(False)             # Les dimmensions sont en fonction de la taille de la fenêtre
     note[0].append(int(read[2][2:-1]))    # Ajoute un nouvelle index avec la dimmension x pour le graphique
     note[0].append(int(read[3][2:-1]))    # 4:-1 correpsond au dimmension y du graphique
     note[1].append(int(read[6][6:-1]))    # Ajoute un nouvelle index avec l'incrément du point de faiblesse si mauvaise réponse
-    note[1].append(int(read[7][6:]))    # 6: correspond à l'incrément du point de faiblesse si bonne réponse
+    note[1].append(int(read[7][6:]))      # 6: correspond à l'incrément du point de faiblesse si bonne réponse
     return mot1, mot2, faible, langue, noteSave, [[], []], note, int(base)      # Renvoie toutes les tableaux, listes, variables et valeurs demandé par l'appelle de la fonction init()
 
 # PROGRAMME PRINCIPALE
@@ -1000,8 +1010,8 @@ while play:
         # Appel de la procédure test() avec comme arguments motG1, motG2 et langue
         test(motG1, motG2, langue)
     elif choix == '4':
-        # Appel de la procédure controle() avec comme arguments motG1, motG2, note, pointF et settings
-        controle(motG1, motG2, note, pointF, settings)
+        # Appel de la procédure controle() avec comme arguments motG1, motG2, note, pointF et settings[1]
+        controle(motG1, motG2, note, pointF, settings[1])
     elif choix == '5':
         # Appel de la procédure hard() avec comme arguments motG1, motG2, pointF et langue
         hard(motG1, motG2, pointF, langue)
@@ -1012,8 +1022,8 @@ while play:
         # Appel de la procédure parametre() avec comme arguments motG1, motG2, pointF, langue, note, et noteSave
         parametre(motG1, motG2, pointF, langue, note, noteSave, settings)
     elif choix == '8':
-        # Appel de la procédure graphique() avec comme arguments langue, noteSave, note, settings, et base
-        graphique(note, noteSave, settings, base)
+        # Appel de la procédure graphique() avec comme arguments langue, noteSave, note, settings[0], et base
+        graphique(note, noteSave, settings[0], base)
     elif choix == '9':
         play = False    # Affecte à play l'état False pour sortir de la boucle
     else:    # Si aucune des conditions ci dessus n'a été respectées alors
