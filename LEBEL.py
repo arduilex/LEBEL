@@ -663,7 +663,7 @@ def graphique(note, noteSave, manuel, base):
             #  t.window_width() est une fonction qui retourne la largeur de la fenêtre turtle.py
             x = t.window_width()/1.4     # Dimenssion global X à partir de la dimension x de la fenêtre
             y = t.window_height()/1.2     # Dimenssion global Y à partir de la dimension y de la fenêtre
-            # 6qzFdbGS
+            # AHX3TPhx
             t.clear()    # Efface juste le texte 
         xDec = -(round(x/2)+40)   # Recule dans les négatif de x par rapport à x=0
         yDec = -(round(y/2))      # Descente dans les négatif de y par rapport à y=0
